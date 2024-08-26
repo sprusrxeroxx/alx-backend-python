@@ -43,4 +43,29 @@ class TestAccessNestedMap(unittest.TestCase):
 
     def test_access_nested_map(self, map, path, expected_output):
         output = access_nested_map(map, path)
-        self.assertEqual(output, expected_output)    
+        self.assertEqual(output, expected_output)
+
+    @parameterized.expand([({}, ("a",), "a"), ({"a": 1}, ("a", "b"), "b")])
+
+    def test_access_nested_map_exception(self, map, path, wrong_output):
+
+        """
+                Test that the 'access_nested_map' function raises the correct exception
+                when given a map and an invalid nested path.
+
+                Args:
+                    map (dict): The input dictionary.
+                    path (tuple): The nested path to access within the dictionary.
+                    wrong_output: The expected exception message.
+
+                Returns:
+                    None: This method asserts the correctness of the raised exception.
+
+                Raises:
+                    AssertionError: If the exception message does not
+                    match the expected message.
+                """
+        with self.assertRaises(KeyError) as e:
+            access_nested_map(map, path)
+            self.assertEqual(wrong_output, str(e.exception))
+
