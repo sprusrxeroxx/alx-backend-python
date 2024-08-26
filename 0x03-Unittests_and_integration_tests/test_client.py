@@ -31,6 +31,8 @@ class TestGithubOrgClient(unittest.TestCase):
     The test cases cover various scenarios to ensure the correct behavior of
     the 'org', '_public_repos_url', 'public_repos', and 'has_license' methods.
     """
+    @parameterized.expand([("google"), ("abc")])
+    @patch("client.get_json")
     def test_org(self, org_name, mock_get_json):
         """
         Test the 'org' method of GithubOrgClient.
